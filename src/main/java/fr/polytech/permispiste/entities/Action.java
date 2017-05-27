@@ -1,12 +1,16 @@
 package fr.polytech.permispiste.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -33,6 +37,9 @@ public class Action implements Serializable {
 	@Column(name = "label")
 	private String label;
 
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "actions")
+	private Set<Goal> goals = new HashSet<Goal>();
+
 	public int getId() {
 		return this.id;
 	}
@@ -47,5 +54,13 @@ public class Action implements Serializable {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public Set<Goal> getGoals() {
+		return this.goals;
+	}
+
+	public void setGoals(Set<Goal> goals) {
+		this.goals = goals;
 	}
 }

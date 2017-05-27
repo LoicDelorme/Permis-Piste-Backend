@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -40,6 +43,10 @@ public class Mission implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "missions")
 	private Set<Paper> papers = new HashSet<Paper>();
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "missions_goals", joinColumns = { @JoinColumn(name = "mission", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "goal", nullable = false, updatable = false) })
+	private Set<Goal> goals = new HashSet<Goal>();
+
 	public int getId() {
 		return this.id;
 	}
@@ -62,5 +69,13 @@ public class Mission implements Serializable {
 
 	public void setPapers(Set<Paper> papers) {
 		this.papers = papers;
+	}
+
+	public Set<Goal> getGoals() {
+		return this.goals;
+	}
+
+	public void setGoals(Set<Goal> goals) {
+		this.goals = goals;
 	}
 }

@@ -1,6 +1,27 @@
 USE TP_PermisPiste;
 
---DROP TABLE users;
+DROP TABLE IF EXISTS users_actions;
+DROP TABLE IF EXISTS trainings_actions;
+
+DROP TABLE IF EXISTS missions_goals;
+DROP TABLE IF EXISTS goals_actions;
+DROP TABLE IF EXISTS papers_missions;
+DROP TABLE IF EXISTS trainings_papers;
+DROP TABLE IF EXISTS trainings_rules;
+DROP TABLE IF EXISTS trainings_users;
+
+DROP TABLE IF EXISTS rules;
+DROP TABLE IF EXISTS missions;
+DROP TABLE IF EXISTS papers;
+DROP TABLE IF EXISTS goals;
+DROP TABLE IF EXISTS actions;
+DROP TABLE IF EXISTS trainings;
+DROP TABLE IF EXISTS users_logs;
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS users;
+
+
+
 CREATE TABLE users (
 	id INT PRIMARY KEY NOT NULL,
     lastname VARCHAR(70) NOT NULL,
@@ -11,7 +32,6 @@ CREATE TABLE users (
     is_administrator BOOLEAN NOT NULL
 );
 
---DROP TABLE users_logs;
 CREATE TABLE users_logs (
 	id INT PRIMARY KEY NOT NULL,
     user INT NOT NULL,
@@ -20,7 +40,6 @@ CREATE TABLE users_logs (
     FOREIGN KEY (user) REFERENCES users(id)
 );
 
---DROP TABLE messages;
 CREATE TABLE messages (
 	id INT PRIMARY KEY NOT NULL,
     subject VARCHAR(70) NOT NULL,
@@ -31,31 +50,26 @@ CREATE TABLE messages (
     FOREIGN KEY (user) REFERENCES users(id)
 );
 
---DROP TABLE actions;
 CREATE TABLE actions (
 	id INT PRIMARY KEY NOT NULL,
     label VARCHAR(70) NOT NULL UNIQUE
 );
 
---DROP TABLE goals;
 CREATE TABLE goals (
 	id INT PRIMARY KEY NOT NULL,
     label VARCHAR(70) NOT NULL UNIQUE
 );
 
---DROP TABLE missions;
 CREATE TABLE missions (
 	id INT PRIMARY KEY NOT NULL,
     label VARCHAR(70) NOT NULL UNIQUE
 );
 
---DROP TABLE papers;
 CREATE TABLE papers (
 	id INT PRIMARY KEY NOT NULL,
     label VARCHAR(70) NOT NULL UNIQUE
 );
 
---DROP TABLE trainings;
 CREATE TABLE trainings (
 	id INT PRIMARY KEY NOT NULL,
     label VARCHAR(70) NOT NULL UNIQUE,
@@ -63,14 +77,12 @@ CREATE TABLE trainings (
     image_path VARCHAR(70)
 );
 
---DROP TABLE rules;
 CREATE TABLE rules (
 	id INT PRIMARY KEY NOT NULL,
     label VARCHAR(70) NOT NULL UNIQUE,
     minimal_score INT NOT NULL
 );
 
---DROP TABLE trainings_users;
 CREATE TABLE trainings_users (
 	training INT NOT NULL,
     user INT NOT NULL,
@@ -79,7 +91,6 @@ CREATE TABLE trainings_users (
     FOREIGN KEY (user) REFERENCES users(id)
 );
 
---DROP TABLE trainings_papers;
 CREATE TABLE trainings_papers (
 	training INT NOT NULL,
     paper INT NOT NULL,
@@ -88,7 +99,6 @@ CREATE TABLE trainings_papers (
     FOREIGN KEY (paper) REFERENCES papers(id)
 );
 
---DROP TABLE papers_missions;
 CREATE TABLE papers_missions (
 	paper INT NOT NULL,
     mission INT NOT NULL,
@@ -97,7 +107,6 @@ CREATE TABLE papers_missions (
     FOREIGN KEY (mission) REFERENCES missions(id)
 );
 
---DROP TABLE missions_goals;
 CREATE TABLE missions_goals (
 	mission INT NOT NULL,
     goal INT NOT NULL,
@@ -106,7 +115,6 @@ CREATE TABLE missions_goals (
     FOREIGN KEY (goal) REFERENCES goals(id)
 );
 
---DROP TABLE goals_actions;
 CREATE TABLE goals_actions (
 	goal INT NOT NULL,
     action INT NOT NULL,
@@ -115,7 +123,6 @@ CREATE TABLE goals_actions (
     FOREIGN KEY (action) REFERENCES actions(id)
 );
 
---DROP TABLE users_actions;
 CREATE TABLE users_actions (
 	user INT NOT NULL,
     training INT NOT NULL,
@@ -134,7 +141,6 @@ CREATE TABLE users_actions (
     FOREIGN KEY (action) REFERENCES actions(id)
 );
 
---DROP TABLE trainings_actions;
 CREATE TABLE trainings_actions (
     training INT NOT NULL,
     paper INT NOT NULL,
@@ -150,7 +156,6 @@ CREATE TABLE trainings_actions (
     FOREIGN KEY (action) REFERENCES actions(id)
 );
 
---DROP TABLE trainings_rules;
 CREATE TABLE trainings_rules (
     training INT NOT NULL,
     rule INT NOT NULL,

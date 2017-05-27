@@ -1,12 +1,16 @@
 package fr.polytech.permispiste.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -46,12 +50,15 @@ public class User implements Serializable {
 	private String password;
 
 	@NotNull
-	@Column(name = "isEnabled")
+	@Column(name = "is_enabled")
 	private boolean isEnabled;
 
 	@NotNull
 	@Column(name = "is_administrator")
 	private boolean isAdministrator;
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	private Set<Training> trainings = new HashSet<Training>();
 
 	public int getId() {
 		return this.id;
@@ -107,5 +114,13 @@ public class User implements Serializable {
 
 	public void setAdministrator(boolean isAdministrator) {
 		this.isAdministrator = isAdministrator;
+	}
+
+	public Set<Training> getTrainings() {
+		return this.trainings;
+	}
+
+	public void setTrainings(Set<Training> trainings) {
+		this.trainings = trainings;
 	}
 }

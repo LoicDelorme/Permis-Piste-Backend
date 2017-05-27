@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -40,6 +43,10 @@ public class Paper implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "papers")
 	private Set<Training> trainings = new HashSet<Training>();
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "papers_missions", joinColumns = { @JoinColumn(name = "paper", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "mission", nullable = false, updatable = false) })
+	private Set<Mission> missions = new HashSet<Mission>();
+
 	public int getId() {
 		return this.id;
 	}
@@ -62,5 +69,13 @@ public class Paper implements Serializable {
 
 	public void setTrainings(Set<Training> trainings) {
 		this.trainings = trainings;
+	}
+
+	public Set<Mission> getMissions() {
+		return this.missions;
+	}
+
+	public void setMissions(Set<Mission> missions) {
+		this.missions = missions;
 	}
 }

@@ -1,5 +1,6 @@
 USE TP_PermisPiste;
 
+/*
 DROP TABLE IF EXISTS users_actions;
 DROP TABLE IF EXISTS trainings_actions;
 
@@ -19,7 +20,7 @@ DROP TABLE IF EXISTS trainings;
 DROP TABLE IF EXISTS users_logs;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS users;
-
+*/
 
 
 CREATE TABLE users (

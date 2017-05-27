@@ -24,143 +24,143 @@ DROP TABLE IF EXISTS users;
 
 
 CREATE TABLE users (
-	id INT PRIMARY KEY NOT NULL,
-    lastname VARCHAR(70) NOT NULL,
-    firstname VARCHAR(70) NOT NULL,
-    email VARCHAR(70) NOT NULL UNIQUE,
-    password VARCHAR(70) NOT NULL,
-    is_enabled BOOLEAN NOT NULL,
-    is_administrator BOOLEAN NOT NULL
+  id               INT PRIMARY KEY NOT NULL,
+  lastname         VARCHAR(70)     NOT NULL,
+  firstname        VARCHAR(70)     NOT NULL,
+  email            VARCHAR(70)     NOT NULL UNIQUE,
+  password         VARCHAR(70)     NOT NULL,
+  is_enabled       BOOLEAN         NOT NULL,
+  is_administrator BOOLEAN         NOT NULL
 );
 
 CREATE TABLE users_logs (
-	id INT PRIMARY KEY NOT NULL,
-    user INT NOT NULL,
-    date DATETIME NOT NULL,
-    ip_address VARCHAR(20) NOT NULL,
-    FOREIGN KEY (user) REFERENCES users(id)
+  id         INT PRIMARY KEY NOT NULL,
+  user       INT             NOT NULL,
+  date       DATETIME        NOT NULL,
+  ip_address VARCHAR(20)     NOT NULL,
+  FOREIGN KEY (user) REFERENCES users (id)
 );
 
 CREATE TABLE messages (
-	id INT PRIMARY KEY NOT NULL,
-    subject VARCHAR(70) NOT NULL,
-    body VARCHAR(70) NOT NULL,
-    date DATETIME NOT NULL,
-    is_read BOOLEAN NOT NULL,
-    user INT NOT NULL,
-    FOREIGN KEY (user) REFERENCES users(id)
+  id      INT PRIMARY KEY NOT NULL,
+  subject VARCHAR(70)     NOT NULL,
+  body    VARCHAR(70)     NOT NULL,
+  date    DATETIME        NOT NULL,
+  is_read BOOLEAN         NOT NULL,
+  user    INT             NOT NULL,
+  CONSTRAINT FK_messages_users FOREIGN KEY (user) REFERENCES users (id)
 );
 
 CREATE TABLE actions (
-	id INT PRIMARY KEY NOT NULL,
-    label VARCHAR(70) NOT NULL UNIQUE
+  id    INT PRIMARY KEY NOT NULL,
+  label VARCHAR(70)     NOT NULL UNIQUE
 );
 
 CREATE TABLE goals (
-	id INT PRIMARY KEY NOT NULL,
-    label VARCHAR(70) NOT NULL UNIQUE
+  id    INT PRIMARY KEY NOT NULL,
+  label VARCHAR(70)     NOT NULL UNIQUE
 );
 
 CREATE TABLE missions (
-	id INT PRIMARY KEY NOT NULL,
-    label VARCHAR(70) NOT NULL UNIQUE
+  id    INT PRIMARY KEY NOT NULL,
+  label VARCHAR(70)     NOT NULL UNIQUE
 );
 
 CREATE TABLE papers (
-	id INT PRIMARY KEY NOT NULL,
-    label VARCHAR(70) NOT NULL UNIQUE
+  id    INT PRIMARY KEY NOT NULL,
+  label VARCHAR(70)     NOT NULL UNIQUE
 );
 
 CREATE TABLE trainings (
-	id INT PRIMARY KEY NOT NULL,
-    label VARCHAR(70) NOT NULL UNIQUE,
-    description VARCHAR(70) NOT NULL,
-    image_path VARCHAR(70)
+  id          INT PRIMARY KEY NOT NULL,
+  label       VARCHAR(70)     NOT NULL UNIQUE,
+  description VARCHAR(70)     NOT NULL,
+  image_path  VARCHAR(70)
 );
 
 CREATE TABLE rules (
-	id INT PRIMARY KEY NOT NULL,
-    label VARCHAR(70) NOT NULL UNIQUE,
-    minimal_score INT NOT NULL
+  id            INT PRIMARY KEY NOT NULL,
+  label         VARCHAR(70)     NOT NULL UNIQUE,
+  minimal_score INT             NOT NULL
 );
 
 CREATE TABLE trainings_users (
-	training INT NOT NULL,
-    user INT NOT NULL,
-    PRIMARY KEY (training, user),
-    FOREIGN KEY (training) REFERENCES trainings(id),
-    FOREIGN KEY (user) REFERENCES users(id)
+  training INT NOT NULL,
+  user     INT NOT NULL,
+  PRIMARY KEY (training, user),
+  CONSTRAINT FK_trainingsUsers_trainings FOREIGN KEY (training) REFERENCES trainings (id),
+  CONSTRAINT FK_trainingsUsers_users FOREIGN KEY (user) REFERENCES users (id)
 );
 
 CREATE TABLE trainings_papers (
-	training INT NOT NULL,
-    paper INT NOT NULL,
-    PRIMARY KEY (training, paper),
-    FOREIGN KEY (training) REFERENCES trainings(id),
-    FOREIGN KEY (paper) REFERENCES papers(id)
+  training INT NOT NULL,
+  paper    INT NOT NULL,
+  PRIMARY KEY (training, paper),
+  CONSTRAINT FK_trainingsPapers_trainings FOREIGN KEY (training) REFERENCES trainings (id),
+  CONSTRAINT FK_trainingsPapers_papers FOREIGN KEY (paper) REFERENCES papers (id)
 );
 
 CREATE TABLE papers_missions (
-	paper INT NOT NULL,
-    mission INT NOT NULL,
-    PRIMARY KEY (paper, mission),
-    FOREIGN KEY (paper) REFERENCES papers(id),
-    FOREIGN KEY (mission) REFERENCES missions(id)
+  paper   INT NOT NULL,
+  mission INT NOT NULL,
+  PRIMARY KEY (paper, mission),
+  CONSTRAINT FK_papersMissions_papers FOREIGN KEY (paper) REFERENCES papers (id),
+  CONSTRAINT FK_papersMissions_missions FOREIGN KEY (mission) REFERENCES missions (id)
 );
 
 CREATE TABLE missions_goals (
-	mission INT NOT NULL,
-    goal INT NOT NULL,
-    PRIMARY KEY (mission, goal),
-    FOREIGN KEY (mission) REFERENCES missions(id),
-    FOREIGN KEY (goal) REFERENCES goals(id)
+  mission INT NOT NULL,
+  goal    INT NOT NULL,
+  PRIMARY KEY (mission, goal),
+  CONSTRAINT FK_missionsGoals_missions FOREIGN KEY (mission) REFERENCES missions (id),
+  CONSTRAINT FK_missionsGoals_goals FOREIGN KEY (goal) REFERENCES goals (id)
 );
 
 CREATE TABLE goals_actions (
-	goal INT NOT NULL,
-    action INT NOT NULL,
-    PRIMARY KEY (goal, action),
-    FOREIGN KEY (goal) REFERENCES goals(id),
-    FOREIGN KEY (action) REFERENCES actions(id)
+  goal   INT NOT NULL,
+  action INT NOT NULL,
+  PRIMARY KEY (goal, action),
+  CONSTRAINT FK_goalsActions_goals FOREIGN KEY (goal) REFERENCES goals (id),
+  CONSTRAINT FK_goalsActions_actions FOREIGN KEY (action) REFERENCES actions (id)
 );
 
 CREATE TABLE users_actions (
-	user INT NOT NULL,
-    training INT NOT NULL,
-    paper INT NOT NULL,
-    mission INT NOT NULL,
-    goal INT NOT NULL,
-    action INT NOT NULL,
-    offset INT NOT NULL,
-    elasped_time INT NOT NULL,
-    PRIMARY KEY (user, training, paper, mission, goal, action),
-    FOREIGN KEY (user) REFERENCES users(id),
-    FOREIGN KEY (training) REFERENCES trainings(id),
-    FOREIGN KEY (paper) REFERENCES papers(id),
-    FOREIGN KEY (mission) REFERENCES missions(id),
-    FOREIGN KEY (goal) REFERENCES goals(id),
-    FOREIGN KEY (action) REFERENCES actions(id)
+  user         INT NOT NULL,
+  training     INT NOT NULL,
+  paper        INT NOT NULL,
+  mission      INT NOT NULL,
+  goal         INT NOT NULL,
+  action       INT NOT NULL,
+  offset       INT NOT NULL,
+  elasped_time INT NOT NULL,
+  PRIMARY KEY (user, training, paper, mission, goal, action),
+  CONSTRAINT FK_usersActions_users FOREIGN KEY (user) REFERENCES users (id),
+  CONSTRAINT FK_usersActions_trainings FOREIGN KEY (training) REFERENCES trainings (id),
+  CONSTRAINT FK_usersActions_papers FOREIGN KEY (paper) REFERENCES papers (id),
+  CONSTRAINT FK_usersActions_missions FOREIGN KEY (mission) REFERENCES missions (id),
+  CONSTRAINT FK_usersActions_goals FOREIGN KEY (goal) REFERENCES goals (id),
+  CONSTRAINT FK_usersActions_actions FOREIGN KEY (action) REFERENCES actions (id)
 );
 
 CREATE TABLE trainings_actions (
-    training INT NOT NULL,
-    paper INT NOT NULL,
-    mission INT NOT NULL,
-    goal INT NOT NULL,
-    action INT NOT NULL,
-    offset INT NOT NULL,
-    PRIMARY KEY (training, paper, mission, goal, action),
-    FOREIGN KEY (training) REFERENCES trainings(id),
-    FOREIGN KEY (paper) REFERENCES papers(id),
-    FOREIGN KEY (mission) REFERENCES missions(id),
-    FOREIGN KEY (goal) REFERENCES goals(id),
-    FOREIGN KEY (action) REFERENCES actions(id)
+  training INT NOT NULL,
+  paper    INT NOT NULL,
+  mission  INT NOT NULL,
+  goal     INT NOT NULL,
+  action   INT NOT NULL,
+  offset   INT NOT NULL,
+  PRIMARY KEY (training, paper, mission, goal, action),
+  CONSTRAINT FK_trainingsActions_trainings FOREIGN KEY (training) REFERENCES trainings (id),
+  CONSTRAINT FK_trainingsActions_papers FOREIGN KEY (paper) REFERENCES papers (id),
+  CONSTRAINT FK_trainingsActions_missions FOREIGN KEY (mission) REFERENCES missions (id),
+  CONSTRAINT FK_trainingsActions_goals FOREIGN KEY (goal) REFERENCES goals (id),
+  CONSTRAINT FK_trainingsActions_actions FOREIGN KEY (action) REFERENCES actions (id)
 );
 
 CREATE TABLE trainings_rules (
-    training INT NOT NULL,
-    rule INT NOT NULL,
-    PRIMARY KEY (training, rule),
-    FOREIGN KEY (training) REFERENCES trainings(id),
-    FOREIGN KEY (rule) REFERENCES rules(id)
+  training INT NOT NULL,
+  rule     INT NOT NULL,
+  PRIMARY KEY (training, rule),
+  CONSTRAINT FK_trainingsRules_trainings FOREIGN KEY (training) REFERENCES trainings (id),
+  CONSTRAINT FK_trainingsRules_rules FOREIGN KEY (rule) REFERENCES rules (id)
 );

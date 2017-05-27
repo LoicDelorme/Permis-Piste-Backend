@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS papers;
 DROP TABLE IF EXISTS goals;
 DROP TABLE IF EXISTS actions;
 DROP TABLE IF EXISTS trainings;
-DROP TABLE IF EXISTS users_logs;
+DROP TABLE IF EXISTS logs;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS users;
 */
@@ -134,11 +134,11 @@ CREATE TABLE users_actions (
   offset       INT NOT NULL,
   elasped_time INT NOT NULL,
   PRIMARY KEY (user, training, paper, mission, goal, action),
-  CONSTRAINT FK_user_actions FOREIGN KEY (user) REFERENCES users (id),
+  CONSTRAINT FK_user_action FOREIGN KEY (user) REFERENCES users (id),
   CONSTRAINT FK_action_training FOREIGN KEY (training) REFERENCES trainings (id),
   CONSTRAINT FK_action_paper FOREIGN KEY (paper) REFERENCES papers (id),
   CONSTRAINT FK_action_mission FOREIGN KEY (mission) REFERENCES missions (id),
-  CONSTRAINT FK_action_goal FOREIGN KEY (goal) REFERENCES goals (id),
+  CONSTRAINT FK_action_goal2 FOREIGN KEY (goal) REFERENCES goals (id),
   CONSTRAINT FK_action_user FOREIGN KEY (action) REFERENCES actions (id)
 );
 
@@ -151,10 +151,10 @@ CREATE TABLE trainings_actions (
   offset   INT NOT NULL,
   PRIMARY KEY (training, paper, mission, goal, action),
   CONSTRAINT FK_training_action FOREIGN KEY (training) REFERENCES trainings (id),
-  CONSTRAINT FK_action_paper FOREIGN KEY (paper) REFERENCES papers (id),
-  CONSTRAINT FK_action_mission FOREIGN KEY (mission) REFERENCES missions (id),
-  CONSTRAINT FK_action_goal FOREIGN KEY (goal) REFERENCES goals (id),
-  CONSTRAINT FK_actions_training FOREIGN KEY (action) REFERENCES actions (id)
+  CONSTRAINT FK_paper_action FOREIGN KEY (paper) REFERENCES papers (id),
+  CONSTRAINT FK_mission_action FOREIGN KEY (mission) REFERENCES missions (id),
+  CONSTRAINT FK_goal_action2 FOREIGN KEY (goal) REFERENCES goals (id),
+  CONSTRAINT FK_training_actions FOREIGN KEY (action) REFERENCES actions (id)
 );
 
 CREATE TABLE trainings_rules (

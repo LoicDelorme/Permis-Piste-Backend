@@ -56,6 +56,10 @@ public class Training implements Serializable {
 	@JoinTable(name = "trainings_papers", joinColumns = { @JoinColumn(name = "training", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "paper", nullable = false, updatable = false) })
 	private Set<Paper> papers = new HashSet<Paper>();
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "trainings_rules", joinColumns = { @JoinColumn(name = "training", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "rule", nullable = false, updatable = false) })
+	private Set<Rule> rules = new HashSet<Rule>();
+
 	public int getId() {
 		return this.id;
 	}
@@ -102,5 +106,13 @@ public class Training implements Serializable {
 
 	public void setPapers(Set<Paper> papers) {
 		this.papers = papers;
+	}
+
+	public Set<Rule> getRules() {
+		return this.rules;
+	}
+
+	public void setRules(Set<Rule> rules) {
+		this.rules = rules;
 	}
 }

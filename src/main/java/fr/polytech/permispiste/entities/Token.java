@@ -30,7 +30,7 @@ public class Token implements Serializable {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(name = "id")
-	private int id;
+	private String id;
 
 	@NotNull
 	@Column(name = "begin")
@@ -42,14 +42,13 @@ public class Token implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
-	@Column(name = "user")
 	private User user;
 
-	public int getId() {
+	public String getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

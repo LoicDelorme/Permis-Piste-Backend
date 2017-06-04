@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS users;
 */
 
 CREATE TABLE users (
-  id               INT PRIMARY KEY NOT NULL,
+  id               INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   lastname         VARCHAR(70)     NOT NULL,
   firstname        VARCHAR(70)     NOT NULL,
   email            VARCHAR(70)     NOT NULL UNIQUE,
@@ -40,7 +40,7 @@ CREATE TABLE tokens (
 );
 
 CREATE TABLE logs (
-  id         INT PRIMARY KEY NOT NULL,
+  id         INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   date       DATETIME        NOT NULL,
   ip_address VARCHAR(20)     NOT NULL,
   user       INT             NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE logs (
 );
 
 CREATE TABLE messages (
-  id      INT PRIMARY KEY NOT NULL,
+  id      INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   subject VARCHAR(70)     NOT NULL,
   body    VARCHAR(70)     NOT NULL,
   date    DATETIME        NOT NULL,
@@ -58,34 +58,34 @@ CREATE TABLE messages (
 );
 
 CREATE TABLE actions (
-  id    INT PRIMARY KEY NOT NULL,
+  id    INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   label VARCHAR(70)     NOT NULL UNIQUE
 );
 
 CREATE TABLE goals (
-  id    INT PRIMARY KEY NOT NULL,
+  id    INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   label VARCHAR(70)     NOT NULL UNIQUE
 );
 
 CREATE TABLE missions (
-  id    INT PRIMARY KEY NOT NULL,
+  id    INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   label VARCHAR(70)     NOT NULL UNIQUE
 );
 
 CREATE TABLE papers (
-  id    INT PRIMARY KEY NOT NULL,
+  id    INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   label VARCHAR(70)     NOT NULL UNIQUE
 );
 
 CREATE TABLE trainings (
-  id          INT PRIMARY KEY NOT NULL,
+  id          INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   label       VARCHAR(70)     NOT NULL UNIQUE,
   description VARCHAR(70)     NOT NULL,
   image_path  VARCHAR(70)
 );
 
 CREATE TABLE rules (
-  id            INT PRIMARY KEY NOT NULL,
+  id            INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   label         VARCHAR(70)     NOT NULL UNIQUE,
   minimal_score INT             NOT NULL
 );

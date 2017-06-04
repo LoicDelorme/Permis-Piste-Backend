@@ -15,10 +15,15 @@
 	    
 	    <mapping class="fr.polytech.permispiste.entities.Action" />
 	    <mapping class="fr.polytech.permispiste.entities.Goal" />
+	    <mapping class="fr.polytech.permispiste.entities.Log" />
+	    <mapping class="fr.polytech.permispiste.entities.Message" />
 	    <mapping class="fr.polytech.permispiste.entities.Mission" />
 	    <mapping class="fr.polytech.permispiste.entities.Paper" />
 	    <mapping class="fr.polytech.permispiste.entities.Rule" />
+	    <mapping class="fr.polytech.permispiste.entities.Token" />
 	    <mapping class="fr.polytech.permispiste.entities.Training" />
+	    <mapping class="fr.polytech.permispiste.entities.TrainingAction" />
 	    <mapping class="fr.polytech.permispiste.entities.User" />
+	    <mapping class="fr.polytech.permispiste.entities.UserAction" />
 	</session-factory>
 </hibernate-configuration>

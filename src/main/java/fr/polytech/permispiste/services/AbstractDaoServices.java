@@ -12,8 +12,6 @@ import org.hibernate.Session;
  * This class represents an abstract DAO services.
  *
  * @author DELORME Loïc
- * @param <T>
- *            The type of the object to handle.
  * @since 1.0.0
  */
 public class AbstractDaoServices<T> implements DaoServices<T> {
@@ -32,6 +30,8 @@ public class AbstractDaoServices<T> implements DaoServices<T> {
 		final T entity = session.find(this.entityClass, id);
 		session.getTransaction().commit();
 
+		session.close();
+
 		return entity;
 	}
 
@@ -44,6 +44,8 @@ public class AbstractDaoServices<T> implements DaoServices<T> {
 		final List<T> entities = session.createQuery(criteriaQuery.select(criteriaQuery.from(this.entityClass))).getResultList();
 		session.getTransaction().commit();
 
+		session.close();
+
 		return entities;
 	}
 
@@ -54,6 +56,8 @@ public class AbstractDaoServices<T> implements DaoServices<T> {
 		session.beginTransaction();
 		session.saveOrUpdate(object);
 		session.getTransaction().commit();
+
+		session.close();
 	}
 
 	@Override
@@ -63,6 +67,8 @@ public class AbstractDaoServices<T> implements DaoServices<T> {
 		session.beginTransaction();
 		session.update(object);
 		session.getTransaction().commit();
+
+		session.close();
 	}
 
 	@Override
@@ -72,5 +78,7 @@ public class AbstractDaoServices<T> implements DaoServices<T> {
 		session.beginTransaction();
 		session.delete(object);
 		session.getTransaction().commit();
+
+		session.close();
 	}
 }

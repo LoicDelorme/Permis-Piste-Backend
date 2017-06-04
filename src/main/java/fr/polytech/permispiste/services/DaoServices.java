@@ -6,8 +6,6 @@ import java.util.List;
  * This interface represents a list of DAO services.
  *
  * @author DELORME Loïc
- * @param <T>
- *            The type of the object to handle.
  * @since 1.0.0
  */
 public interface DaoServices<T> {

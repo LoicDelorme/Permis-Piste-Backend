@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -59,6 +60,9 @@ public class Training implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "trainings_rules", joinColumns = { @JoinColumn(name = "training", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "rule", nullable = false, updatable = false) })
 	private Set<Rule> rules = new HashSet<Rule>();
+
+	@OneToMany(mappedBy = "training")
+	private Set<TrainingAction> trainingActions = new HashSet<TrainingAction>();
 
 	public int getId() {
 		return this.id;
@@ -114,5 +118,13 @@ public class Training implements Serializable {
 
 	public void setRules(Set<Rule> rules) {
 		this.rules = rules;
+	}
+
+	public Set<TrainingAction> getTrainingActions() {
+		return this.trainingActions;
+	}
+
+	public void setTrainingActions(Set<TrainingAction> trainingActions) {
+		this.trainingActions = trainingActions;
 	}
 }

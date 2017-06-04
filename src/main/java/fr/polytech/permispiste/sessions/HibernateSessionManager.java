@@ -14,16 +14,16 @@ public class HibernateSessionManager {
 
 	public static final String HIBERNATE_CONFIGURATION_FILE = "hibernate.cfg.xml";
 
-	private static SessionFactory sessionFactory = null;
+	private static SessionFactory SESSION_FACTORY = null;
 
 	private HibernateSessionManager() {
 	}
 
 	public static synchronized Session getSession() {
-		if (sessionFactory == null) {
-			sessionFactory = new Configuration().configure(HIBERNATE_CONFIGURATION_FILE).buildSessionFactory();
+		if (SESSION_FACTORY == null) {
+			SESSION_FACTORY = new Configuration().configure(HIBERNATE_CONFIGURATION_FILE).buildSessionFactory();
 		}
 
-		return sessionFactory.openSession();
+		return SESSION_FACTORY.openSession();
 	}
 }

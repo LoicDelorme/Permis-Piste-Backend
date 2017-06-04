@@ -1,4 +1,4 @@
-package fr.polytech.permispiste.persistance;
+package fr.polytech.permispiste.sessions;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,10 +22,6 @@ public class HibernateSessionManager {
 	public static synchronized Session getSession() {
 		if (sessionFactory == null) {
 			sessionFactory = new Configuration().configure(HIBERNATE_CONFIGURATION_FILE).buildSessionFactory();
-		}
-
-		if (sessionFactory.isOpen()) {
-			return sessionFactory.getCurrentSession();
 		}
 
 		return sessionFactory.openSession();

@@ -1,6 +1,6 @@
 package fr.polytech.permispiste.services;
 
-import static fr.polytech.permispiste.persistance.HibernateSessionManager.getSession;
+import static fr.polytech.permispiste.sessions.HibernateSessionManager.getSession;
 
 import java.util.List;
 

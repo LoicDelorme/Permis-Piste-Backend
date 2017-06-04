@@ -40,9 +40,6 @@ public class Goal implements Serializable {
 	@Column(name = "label")
 	private String label;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "goals")
-	private Set<Mission> missions = new HashSet<Mission>();
-
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "goals_actions", joinColumns = { @JoinColumn(name = "goal", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "action", nullable = false, updatable = false) })
 	private Set<Action> actions = new HashSet<Action>();
@@ -61,14 +58,6 @@ public class Goal implements Serializable {
 
 	public void setLabel(String label) {
 		this.label = label;
-	}
-
-	public Set<Mission> getMissions() {
-		return this.missions;
-	}
-
-	public void setMissions(Set<Mission> missions) {
-		this.missions = missions;
 	}
 
 	public Set<Action> getActions() {

@@ -49,7 +49,6 @@ public class Message implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@NotNull
-	@Column(name = "user")
 	private User user;
 
 	public int getId() {

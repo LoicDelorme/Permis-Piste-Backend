@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -21,26 +22,32 @@ public class UserAction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "user")
 	private User user;
 
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "training")
 	private Training training;
 
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "paper")
 	private Paper paper;
 
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "mission")
 	private Mission mission;
 
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "goal")
 	private Goal goal;
 
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "action")
 	private Action action;

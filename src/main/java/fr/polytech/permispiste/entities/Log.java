@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
  * @since 1.0.0
  */
 @Entity
-@Table(name = "users_logs")
+@Table(name = "logs")
 public class Log implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -31,11 +31,6 @@ public class Log implements Serializable {
 	@Column(name = "id")
 	private int id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@NotNull
-	@Column(name = "user")
-	private User user;
-
 	@NotNull
 	@Column(name = "date")
 	private LocalDateTime date;
@@ -44,20 +39,17 @@ public class Log implements Serializable {
 	@Column(name = "ip_address")
 	private String ipAddress;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@NotNull
+	@Column(name = "user")
+	private User user;
+
 	public int getId() {
 		return this.id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public LocalDateTime getDate() {
@@ -74,5 +66,13 @@ public class Log implements Serializable {
 
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

@@ -38,13 +38,13 @@ public class Action implements Serializable {
 	@Column(name = "label")
 	private String label;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "actions")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "actions")
 	private Set<Goal> goals = new HashSet<Goal>();
 
-	@OneToMany(mappedBy = "action")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "action")
 	private Set<TrainingAction> trainingActions = new HashSet<TrainingAction>();
 
-	@OneToMany(mappedBy = "action")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "action")
 	private Set<UserAction> userActions = new HashSet<UserAction>();
 
 	public int getId() {

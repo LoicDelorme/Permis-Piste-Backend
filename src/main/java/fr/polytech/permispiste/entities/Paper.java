@@ -40,10 +40,10 @@ public class Paper implements Serializable {
 	@Column(name = "label")
 	private String label;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "papers")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "papers")
 	private Set<Training> trainings = new HashSet<Training>();
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "papers_missions", joinColumns = { @JoinColumn(name = "paper", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "mission", nullable = false, updatable = false) })
 	private Set<Mission> missions = new HashSet<Mission>();
 

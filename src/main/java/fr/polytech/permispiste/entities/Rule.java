@@ -41,7 +41,7 @@ public class Rule implements Serializable {
 	@Column(name = "minimal_score")
 	private int minimalScore;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rules")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "rules")
 	private Set<Training> trainings = new HashSet<Training>();
 
 	public int getId() {

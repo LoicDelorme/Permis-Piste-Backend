@@ -40,10 +40,10 @@ public class Mission implements Serializable {
 	@Column(name = "label")
 	private String label;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "missions")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "missions")
 	private Set<Paper> papers = new HashSet<Paper>();
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "missions_goals", joinColumns = { @JoinColumn(name = "mission", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "goal", nullable = false, updatable = false) })
 	private Set<Goal> goals = new HashSet<Goal>();
 

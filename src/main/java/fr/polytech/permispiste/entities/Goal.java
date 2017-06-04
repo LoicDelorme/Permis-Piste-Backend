@@ -40,11 +40,11 @@ public class Goal implements Serializable {
 	@Column(name = "label")
 	private String label;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "goals")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "goals")
 	private Set<Mission> missions = new HashSet<Mission>();
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "goals_actions", joinColumns = { @JoinColumn(name = "goal", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "mission", nullable = false, updatable = false) })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "goals_actions", joinColumns = { @JoinColumn(name = "goal", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "action", nullable = false, updatable = false) })
 	private Set<Action> actions = new HashSet<Action>();
 
 	public int getId() {

@@ -58,10 +58,10 @@ public class User implements Serializable {
 	@Column(name = "is_administrator")
 	private boolean isAdministrator;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
 	private Set<Training> trainings = new HashSet<Training>();
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private Set<UserAction> userActions = new HashSet<UserAction>();
 
 	public int getId() {

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -59,6 +60,9 @@ public class User implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
 	private Set<Training> trainings = new HashSet<Training>();
+
+	@OneToMany(mappedBy = "user")
+	private Set<UserAction> userActions = new HashSet<UserAction>();
 
 	public int getId() {
 		return this.id;
@@ -122,5 +126,13 @@ public class User implements Serializable {
 
 	public void setTrainings(Set<Training> trainings) {
 		this.trainings = trainings;
+	}
+
+	public Set<UserAction> getUserActions() {
+		return this.userActions;
+	}
+
+	public void setUserActions(Set<UserAction> userActions) {
+		this.userActions = userActions;
 	}
 }

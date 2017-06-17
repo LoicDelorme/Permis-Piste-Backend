@@ -14,11 +14,11 @@ public class TrainingForm {
 
 	private String imagePath;
 
-	private int[] usersIds;
+	private Integer[] usersIds;
 
-	private int[] papersIds;
+	private Integer[] papersIds;
 
-	private int[] rulesIds;
+	private Integer[] rulesIds;
 
 	public String getLabel() {
 		return this.label;
@@ -44,27 +44,27 @@ public class TrainingForm {
 		this.imagePath = imagePath;
 	}
 
-	public int[] getUsersIds() {
+	public Integer[] getUsersIds() {
 		return this.usersIds;
 	}
 
-	public void setUsersIds(int[] usersIds) {
+	public void setUsersIds(Integer[] usersIds) {
 		this.usersIds = usersIds;
 	}
 
-	public int[] getPapersIds() {
+	public Integer[] getPapersIds() {
 		return this.papersIds;
 	}
 
-	public void setPapersIds(int[] papersIds) {
+	public void setPapersIds(Integer[] papersIds) {
 		this.papersIds = papersIds;
 	}
 
-	public int[] getRulesIds() {
+	public Integer[] getRulesIds() {
 		return this.rulesIds;
 	}
 
-	public void setRulesIds(int[] rulesIds) {
+	public void setRulesIds(Integer[] rulesIds) {
 		this.rulesIds = rulesIds;
 	}
 }

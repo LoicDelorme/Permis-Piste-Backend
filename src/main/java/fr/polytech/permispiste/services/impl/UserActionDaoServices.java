@@ -14,9 +14,4 @@ public class UserActionDaoServices extends AbstractDaoServices<UserAction> {
 	public UserActionDaoServices() {
 		super(UserAction.class);
 	}
-
-	@Override
-	public String getTableName() {
-		return "users_actions";
-	}
 }

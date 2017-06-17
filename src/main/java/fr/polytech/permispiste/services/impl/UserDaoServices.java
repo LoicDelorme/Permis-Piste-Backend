@@ -14,9 +14,4 @@ public class UserDaoServices extends AbstractDaoServices<User> {
 	public UserDaoServices() {
 		super(User.class);
 	}
-
-	@Override
-	public String getTableName() {
-		return "users";
-	}
 }

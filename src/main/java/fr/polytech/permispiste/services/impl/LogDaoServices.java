@@ -14,9 +14,4 @@ public class LogDaoServices extends AbstractDaoServices<Log> {
 	public LogDaoServices() {
 		super(Log.class);
 	}
-
-	@Override
-	public String getTableName() {
-		return "logs";
-	}
 }

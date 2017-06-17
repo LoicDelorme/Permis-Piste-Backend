@@ -14,9 +14,4 @@ public class RuleDaoServices extends AbstractDaoServices<Rule> {
 	public RuleDaoServices() {
 		super(Rule.class);
 	}
-
-	@Override
-	public String getTableName() {
-		return "rules";
-	}
 }

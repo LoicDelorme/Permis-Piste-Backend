@@ -4,11 +4,11 @@ import static fr.polytech.permispiste.sessions.HibernateSessionManager.getSessio
 
 import java.util.List;
 
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 /**
  * This class represents an abstract DAO services.
@@ -24,8 +24,6 @@ public abstract class AbstractDaoServices<T> implements DaoServices<T> {
 		this.entityClass = entityClass;
 	}
 
-	public abstract String getTableName();
-
 	@Override
 	public T get(Object id) {
 		final Session session = getSession();
@@ -40,14 +38,13 @@ public abstract class AbstractDaoServices<T> implements DaoServices<T> {
 	}
 
 	@Override
-	public List<T> getAllIn(List<Object> ids) {
+	public List<T> getAllIn(List<Integer> ids) {
 		final Session session = getSession();
 
 		session.beginTransaction();
-		final String query = String.format("SELECT el FROM %s el WHERE el.id IN :ids", getTableName());
-		final TypedQuery<T> typedQuery = session.createQuery(query, this.entityClass);
-		typedQuery.setParameter("ids", ids);
-		final List<T> entities = typedQuery.getResultList();
+		final Query<T> query = session.createQuery(String.format("SELECT el FROM %s el WHERE el.id IN (:ids)", this.entityClass.getSimpleName()), this.entityClass);
+		query.setParameterList("ids", ids);
+		final List<T> entities = query.getResultList();
 		session.getTransaction().commit();
 
 		session.close();

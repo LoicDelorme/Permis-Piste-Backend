@@ -14,9 +14,4 @@ public class TokenDaoServices extends AbstractDaoServices<Token> {
 	public TokenDaoServices() {
 		super(Token.class);
 	}
-
-	@Override
-	public String getTableName() {
-		return "tokens";
-	}
 }

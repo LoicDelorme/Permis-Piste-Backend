@@ -1,14 +1,16 @@
 package fr.polytech.permispiste.controllers;
 
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.polytech.permispiste.entities.CounterReport;
 import fr.polytech.permispiste.entities.Mission;
 import fr.polytech.permispiste.entities.Paper;
 import fr.polytech.permispiste.services.impl.MissionDaoServices;
@@ -20,8 +22,9 @@ import fr.polytech.permispiste.services.impl.PaperDaoServices;
  * @author DELORME Loïc
  * @since 1.0.0
  */
+@CrossOrigin
 @RestController
-@RequestMapping("/paper")
+@RequestMapping("/api/paper")
 public class PaperController extends AbstractController {
 
 	private final PaperDaoServices paperDaoServices;
@@ -43,16 +46,16 @@ public class PaperController extends AbstractController {
 		return SERIALIZER.toT(this.paperDaoServices.getAll());
 	}
 
+	@RequestMapping(value = "/count", method = RequestMethod.GET)
+	public String count() {
+		return SERIALIZER.toT(new CounterReport(this.paperDaoServices.count()));
+	}
+
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(@RequestParam(value = "label") String label, @RequestParam(value = "missionIds[]") int[] missionIds) {
-		final Set<Mission> missions = new HashSet<Mission>();
-		for (int missionId : missionIds) {
-			missions.add(this.missionDaoServices.get(missionId));
-		}
-
 		final Paper paper = new Paper();
 		paper.setLabel(label);
-		paper.setMissions(missions);
+		paper.setMissions(new HashSet<Mission>(this.missionDaoServices.getAllIn(Arrays.asList(missionIds))));
 
 		this.paperDaoServices.insert(paper);
 		return SERIALIZER.toT(paper);
@@ -60,14 +63,9 @@ public class PaperController extends AbstractController {
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
 	public void update(@PathVariable int id, @RequestParam(value = "label") String label, @RequestParam(value = "missionIds[]") int[] missionIds) {
-		final Set<Mission> missions = new HashSet<Mission>();
-		for (int missionId : missionIds) {
-			missions.add(this.missionDaoServices.get(missionId));
-		}
-
 		final Paper paper = this.paperDaoServices.get(id);
 		paper.setLabel(label);
-		paper.setMissions(missions);
+		paper.setMissions(new HashSet<Mission>(this.missionDaoServices.getAllIn(Arrays.asList(missionIds))));
 
 		this.paperDaoServices.update(paper);
 	}

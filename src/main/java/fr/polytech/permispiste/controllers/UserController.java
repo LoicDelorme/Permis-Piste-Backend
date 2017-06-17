@@ -1,11 +1,13 @@
 package fr.polytech.permispiste.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.polytech.permispiste.entities.CounterReport;
 import fr.polytech.permispiste.entities.User;
 import fr.polytech.permispiste.services.impl.UserDaoServices;
 
@@ -15,8 +17,9 @@ import fr.polytech.permispiste.services.impl.UserDaoServices;
  * @author DELORME Loïc
  * @since 1.0.0
  */
+@CrossOrigin
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController extends AbstractController {
 
 	private final UserDaoServices userDaoServices;
@@ -33,6 +36,11 @@ public class UserController extends AbstractController {
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String all() {
 		return SERIALIZER.toT(this.userDaoServices.getAll());
+	}
+
+	@RequestMapping(value = "/count", method = RequestMethod.GET)
+	public String count() {
+		return SERIALIZER.toT(new CounterReport(this.userDaoServices.count()));
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)

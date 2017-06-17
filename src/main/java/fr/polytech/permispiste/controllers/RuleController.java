@@ -1,11 +1,13 @@
 package fr.polytech.permispiste.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.polytech.permispiste.entities.CounterReport;
 import fr.polytech.permispiste.entities.Rule;
 import fr.polytech.permispiste.services.impl.RuleDaoServices;
 
@@ -15,8 +17,9 @@ import fr.polytech.permispiste.services.impl.RuleDaoServices;
  * @author DELORME Loïc
  * @since 1.0.0
  */
+@CrossOrigin
 @RestController
-@RequestMapping("/rule")
+@RequestMapping("/api/rule")
 public class RuleController extends AbstractController {
 
 	private final RuleDaoServices ruleDaoServices;
@@ -33,6 +36,11 @@ public class RuleController extends AbstractController {
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String all() {
 		return SERIALIZER.toT(this.ruleDaoServices.getAll());
+	}
+
+	@RequestMapping(value = "/count", method = RequestMethod.GET)
+	public String count() {
+		return SERIALIZER.toT(new CounterReport(this.ruleDaoServices.count()));
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)

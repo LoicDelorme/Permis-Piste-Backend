@@ -45,6 +45,11 @@ public class ActionController extends AbstractController {
 		return SERIALIZER.to(new SuccessResponse(new CounterReport(this.actionDaoServices.count())));
 	}
 
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test() {
+		return SERIALIZER.toT("test");
+	}
+
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(@RequestBody String data) {
 		final ActionForm actionForm = DESERIALIZER.from(data, ActionForm.class);

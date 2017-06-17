@@ -2,6 +2,7 @@ package fr.polytech.permispiste.serializers;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
 
 /**
  * This class represents a JSON serializer.
@@ -11,7 +12,7 @@ import javax.json.bind.JsonbBuilder;
  */
 public class JsonSerializer implements Serializer<String> {
 
-	public static final Jsonb JSON_BUILDER = JsonbBuilder.create();
+	public static final Jsonb JSON_BUILDER = JsonbBuilder.create(new JsonbConfig().withNullValues(true));
 
 	@Override
 	public <I> String to(I in) {

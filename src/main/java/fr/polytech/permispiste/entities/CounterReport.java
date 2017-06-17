@@ -8,17 +8,17 @@ package fr.polytech.permispiste.entities;
  */
 public class CounterReport {
 
-	private double number;
+	private int count;
 
-	public CounterReport(double number) {
-		this.number = number;
+	public CounterReport(long number) {
+		this.count = Math.toIntExact(number);
 	}
 
-	public double getNumber() {
-		return this.number;
+	public int getCount() {
+		return this.count;
 	}
 
-	public void setNumber(double number) {
-		this.number = number;
+	public void setCount(int number) {
+		this.count = number;
 	}
 }

@@ -5,9 +5,9 @@ import java.util.HashSet;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.polytech.permispiste.entities.CounterReport;
@@ -15,6 +15,8 @@ import fr.polytech.permispiste.entities.Paper;
 import fr.polytech.permispiste.entities.Rule;
 import fr.polytech.permispiste.entities.Training;
 import fr.polytech.permispiste.entities.User;
+import fr.polytech.permispiste.requests.TrainingForm;
+import fr.polytech.permispiste.responses.SuccessResponse;
 import fr.polytech.permispiste.services.impl.PaperDaoServices;
 import fr.polytech.permispiste.services.impl.RuleDaoServices;
 import fr.polytech.permispiste.services.impl.TrainingDaoServices;
@@ -48,48 +50,66 @@ public class TrainingController extends AbstractController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String get(@PathVariable int id) {
-		return SERIALIZER.toT(this.trainingDaoServices.get(id));
+		return SERIALIZER.to(new SuccessResponse(this.trainingDaoServices.get(id)));
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String all() {
-		return SERIALIZER.toT(this.trainingDaoServices.getAll());
+		return SERIALIZER.to(this.trainingDaoServices.getAll());
 	}
 
 	@RequestMapping(value = "/count", method = RequestMethod.GET)
 	public String count() {
-		return SERIALIZER.toT(new CounterReport(this.trainingDaoServices.count()));
+		return SERIALIZER.to(new SuccessResponse(new CounterReport(this.trainingDaoServices.count())));
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String add(@RequestParam(value = "label") String label, @RequestParam(value = "description") String description, @RequestParam(value = "imagePath") String imagePath, @RequestParam(value = "userIds[]") int[] userIds, @RequestParam(value = "paperIds[]") int[] paperIds, @RequestParam(value = "ruleIds[]") int[] ruleIds) {
+	public String add(@RequestBody String data) {
+		final TrainingForm trainingForm = DESERIALIZER.from(data, TrainingForm.class);
+
 		final Training training = new Training();
-		training.setLabel(label);
-		training.setDescription(description);
-		training.setImagePath(imagePath);
-		training.setUsers(new HashSet<User>(this.userDaoServices.getAllIn(Arrays.asList(userIds))));
-		training.setPapers(new HashSet<Paper>(this.paperDaoServices.getAllIn(Arrays.asList(paperIds))));
-		training.setRules(new HashSet<Rule>(this.ruleDaoServices.getAllIn(Arrays.asList(ruleIds))));
+		training.setLabel(training.getLabel());
+		training.setDescription(training.getDescription());
+		training.setImagePath(training.getImagePath());
+		if (trainingForm.getUsersIds().length > 0) {
+			training.setUsers(new HashSet<User>(this.userDaoServices.getAllIn(Arrays.asList(trainingForm.getUsersIds()))));
+		}
+		if (trainingForm.getPapersIds().length > 0) {
+			training.setPapers(new HashSet<Paper>(this.paperDaoServices.getAllIn(Arrays.asList(trainingForm.getPapersIds()))));
+		}
+		if (trainingForm.getRulesIds().length > 0) {
+			training.setRules(new HashSet<Rule>(this.ruleDaoServices.getAllIn(Arrays.asList(trainingForm.getRulesIds()))));
+		}
 
 		this.trainingDaoServices.insert(training);
-		return SERIALIZER.toT(training);
+		return SERIALIZER.to(new SuccessResponse(training));
 	}
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-	public void update(@PathVariable int id, @RequestParam(value = "label") String label, @RequestParam(value = "description") String description, @RequestParam(value = "imagePath") String imagePath, @RequestParam(value = "userIds[]") int[] userIds, @RequestParam(value = "paperIds[]") int[] paperIds, @RequestParam(value = "ruleIds[]") int[] ruleIds) {
+	public String update(@PathVariable int id, @RequestBody String data) {
+		final TrainingForm trainingForm = DESERIALIZER.from(data, TrainingForm.class);
+
 		final Training training = this.trainingDaoServices.get(id);
-		training.setLabel(label);
-		training.setDescription(description);
-		training.setImagePath(imagePath);
-		training.setUsers(new HashSet<User>(this.userDaoServices.getAllIn(Arrays.asList(userIds))));
-		training.setPapers(new HashSet<Paper>(this.paperDaoServices.getAllIn(Arrays.asList(paperIds))));
-		training.setRules(new HashSet<Rule>(this.ruleDaoServices.getAllIn(Arrays.asList(ruleIds))));
+		training.setLabel(training.getLabel());
+		training.setDescription(training.getDescription());
+		training.setImagePath(training.getImagePath());
+		if (trainingForm.getUsersIds().length > 0) {
+			training.setUsers(new HashSet<User>(this.userDaoServices.getAllIn(Arrays.asList(trainingForm.getUsersIds()))));
+		}
+		if (trainingForm.getPapersIds().length > 0) {
+			training.setPapers(new HashSet<Paper>(this.paperDaoServices.getAllIn(Arrays.asList(trainingForm.getPapersIds()))));
+		}
+		if (trainingForm.getRulesIds().length > 0) {
+			training.setRules(new HashSet<Rule>(this.ruleDaoServices.getAllIn(Arrays.asList(trainingForm.getRulesIds()))));
+		}
 
 		this.trainingDaoServices.update(training);
+		return SERIALIZER.to(new SuccessResponse(training));
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable int id) {
+	public String delete(@PathVariable int id) {
 		this.trainingDaoServices.delete(this.trainingDaoServices.get(id));
+		return SERIALIZER.to(new SuccessResponse());
 	}
 }

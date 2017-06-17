@@ -2,13 +2,15 @@ package fr.polytech.permispiste.controllers;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.polytech.permispiste.entities.Action;
 import fr.polytech.permispiste.entities.CounterReport;
+import fr.polytech.permispiste.requests.ActionForm;
+import fr.polytech.permispiste.responses.SuccessResponse;
 import fr.polytech.permispiste.services.impl.ActionDaoServices;
 
 /**
@@ -30,38 +32,44 @@ public class ActionController extends AbstractController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String get(@PathVariable int id) {
-		return SERIALIZER.toT(this.actionDaoServices.get(id));
+		return SERIALIZER.to(new SuccessResponse(this.actionDaoServices.get(id)));
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String all() {
-		return SERIALIZER.toT(this.actionDaoServices.getAll());
+		return SERIALIZER.to(new SuccessResponse(this.actionDaoServices.getAll()));
 	}
 
 	@RequestMapping(value = "/count", method = RequestMethod.GET)
 	public String count() {
-		return SERIALIZER.toT(new CounterReport(this.actionDaoServices.count()));
+		return SERIALIZER.to(new SuccessResponse(new CounterReport(this.actionDaoServices.count())));
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String add(@RequestParam(value = "label") String label) {
+	public String add(@RequestBody String data) {
+		final ActionForm actionForm = DESERIALIZER.from(data, ActionForm.class);
+
 		final Action action = new Action();
-		action.setLabel(label);
+		action.setLabel(actionForm.getLabel());
 
 		this.actionDaoServices.insert(action);
-		return SERIALIZER.toT(action);
+		return SERIALIZER.to(new SuccessResponse(action));
 	}
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-	public void update(@PathVariable int id, @RequestParam(value = "label") String label) {
+	public String update(@PathVariable int id, @RequestBody String data) {
+		final ActionForm actionForm = DESERIALIZER.from(data, ActionForm.class);
+
 		final Action action = this.actionDaoServices.get(id);
-		action.setLabel(label);
+		action.setLabel(actionForm.getLabel());
 
 		this.actionDaoServices.update(action);
+		return SERIALIZER.to(new SuccessResponse(action));
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable int id) {
+	public String delete(@PathVariable int id) {
 		this.actionDaoServices.delete(this.actionDaoServices.get(id));
+		return SERIALIZER.to(new SuccessResponse());
 	}
 }

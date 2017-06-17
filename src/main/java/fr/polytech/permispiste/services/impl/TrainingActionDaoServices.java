@@ -14,4 +14,9 @@ public class TrainingActionDaoServices extends AbstractDaoServices<TrainingActio
 	public TrainingActionDaoServices() {
 		super(TrainingAction.class);
 	}
+
+	@Override
+	public String getTableName() {
+		return "trainings_actions";
+	}
 }

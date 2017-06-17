@@ -12,7 +12,11 @@ public interface DaoServices<T> {
 
 	public T get(Object id);
 
+	public List<T> getAllIn(List<Object> ids);
+
 	public List<T> getAll();
+
+	public long count();
 
 	public void insert(T object);
 

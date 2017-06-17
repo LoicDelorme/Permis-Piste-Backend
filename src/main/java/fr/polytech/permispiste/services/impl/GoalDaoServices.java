@@ -14,4 +14,9 @@ public class GoalDaoServices extends AbstractDaoServices<Goal> {
 	public GoalDaoServices() {
 		super(Goal.class);
 	}
+
+	@Override
+	public String getTableName() {
+		return "goals";
+	}
 }

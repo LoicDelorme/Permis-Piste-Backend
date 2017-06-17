@@ -14,4 +14,9 @@ public class MessageDaoServices extends AbstractDaoServices<Message> {
 	public MessageDaoServices() {
 		super(Message.class);
 	}
+
+	@Override
+	public String getTableName() {
+		return "messages";
+	}
 }

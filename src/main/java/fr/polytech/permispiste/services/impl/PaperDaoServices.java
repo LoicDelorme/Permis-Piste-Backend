@@ -14,4 +14,9 @@ public class PaperDaoServices extends AbstractDaoServices<Paper> {
 	public PaperDaoServices() {
 		super(Paper.class);
 	}
+
+	@Override
+	public String getTableName() {
+		return "papers";
+	}
 }

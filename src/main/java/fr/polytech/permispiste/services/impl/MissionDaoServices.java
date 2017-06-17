@@ -14,4 +14,9 @@ public class MissionDaoServices extends AbstractDaoServices<Mission> {
 	public MissionDaoServices() {
 		super(Mission.class);
 	}
+
+	@Override
+	public String getTableName() {
+		return "missions";
+	}
 }

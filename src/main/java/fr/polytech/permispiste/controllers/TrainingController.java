@@ -95,12 +95,18 @@ public class TrainingController extends AbstractController {
 		training.setImagePath(training.getImagePath());
 		if (trainingForm.getUsersIds().length > 0) {
 			training.setUsers(new HashSet<User>(this.userDaoServices.getAllIn(Arrays.asList(trainingForm.getUsersIds()))));
+		} else {
+			training.getUsers().clear();
 		}
 		if (trainingForm.getPapersIds().length > 0) {
 			training.setPapers(new HashSet<Paper>(this.paperDaoServices.getAllIn(Arrays.asList(trainingForm.getPapersIds()))));
+		} else {
+			training.getPapers().clear();
 		}
 		if (trainingForm.getRulesIds().length > 0) {
 			training.setRules(new HashSet<Rule>(this.ruleDaoServices.getAllIn(Arrays.asList(trainingForm.getRulesIds()))));
+		} else {
+			training.getRules().clear();
 		}
 
 		this.trainingDaoServices.update(training);

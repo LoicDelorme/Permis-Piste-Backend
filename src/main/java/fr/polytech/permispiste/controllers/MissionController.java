@@ -75,6 +75,8 @@ public class MissionController extends AbstractController {
 		mission.setLabel(missionForm.getLabel());
 		if (missionForm.getIds().length > 0) {
 			mission.setGoals(new HashSet<Goal>(this.goalDaoServices.getAllIn(Arrays.asList(missionForm.getIds()))));
+		} else {
+			mission.getGoals().clear();
 		}
 
 		this.missionDaoServices.update(mission);

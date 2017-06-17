@@ -75,6 +75,8 @@ public class PaperController extends AbstractController {
 		paper.setLabel(paperForm.getLabel());
 		if (paperForm.getIds().length > 0) {
 			paper.setMissions(new HashSet<Mission>(this.missionDaoServices.getAllIn(Arrays.asList(paperForm.getIds()))));
+		} else {
+			paper.getMissions().clear();
 		}
 
 		this.paperDaoServices.update(paper);

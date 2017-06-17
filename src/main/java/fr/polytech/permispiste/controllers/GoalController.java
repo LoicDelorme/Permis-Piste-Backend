@@ -75,6 +75,8 @@ public class GoalController extends AbstractController {
 		goal.setLabel(goalForm.getLabel());
 		if (goalForm.getIds().length > 0) {
 			goal.setActions(new HashSet<Action>(this.actionDaoServices.getAllIn(Arrays.asList(goalForm.getIds()))));
+		} else {
+			goal.getActions().clear();
 		}
 
 		this.goalDaoServices.update(goal);

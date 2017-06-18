@@ -68,9 +68,9 @@ public class TrainingController extends AbstractController {
 		final TrainingForm trainingForm = DESERIALIZER.from(data, TrainingForm.class);
 
 		final Training training = new Training();
-		training.setLabel(training.getLabel());
-		training.setDescription(training.getDescription());
-		training.setImagePath(training.getImagePath());
+		training.setLabel(trainingForm.getLabel());
+		training.setDescription(trainingForm.getDescription());
+		training.setImagePath(trainingForm.getImagePath());
 		if (trainingForm.getUsersIds().length > 0) {
 			training.setUsers(new HashSet<User>(this.userDaoServices.getAllIn(Arrays.asList(trainingForm.getUsersIds()))));
 		}
@@ -90,9 +90,9 @@ public class TrainingController extends AbstractController {
 		final TrainingForm trainingForm = DESERIALIZER.from(data, TrainingForm.class);
 
 		final Training training = this.trainingDaoServices.get(id);
-		training.setLabel(training.getLabel());
-		training.setDescription(training.getDescription());
-		training.setImagePath(training.getImagePath());
+		training.setLabel(trainingForm.getLabel());
+		training.setDescription(trainingForm.getDescription());
+		training.setImagePath(trainingForm.getImagePath());
 		if (trainingForm.getUsersIds().length > 0) {
 			training.setUsers(new HashSet<User>(this.userDaoServices.getAllIn(Arrays.asList(trainingForm.getUsersIds()))));
 		} else {

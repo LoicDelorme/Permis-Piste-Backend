@@ -49,15 +49,15 @@ public class Training implements Serializable {
 	@Column(name = "image_path")
 	private String imagePath;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "trainings_users", joinColumns = { @JoinColumn(name = "training", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "user", nullable = false, updatable = false) })
 	private Set<User> users = new HashSet<User>();
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "trainings_papers", joinColumns = { @JoinColumn(name = "training", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "paper", nullable = false, updatable = false) })
 	private Set<Paper> papers = new HashSet<Paper>();
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "trainings_rules", joinColumns = { @JoinColumn(name = "training", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "rule", nullable = false, updatable = false) })
 	private Set<Rule> rules = new HashSet<Rule>();
 

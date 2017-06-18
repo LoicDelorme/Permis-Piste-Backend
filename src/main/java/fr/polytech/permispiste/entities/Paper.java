@@ -40,7 +40,7 @@ public class Paper implements Serializable {
 	@Column(name = "label")
 	private String label;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "papers_missions", joinColumns = { @JoinColumn(name = "paper", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "mission", nullable = false, updatable = false) })
 	private Set<Mission> missions = new HashSet<Mission>();
 

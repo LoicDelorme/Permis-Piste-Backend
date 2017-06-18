@@ -40,7 +40,7 @@ public class Goal implements Serializable {
 	@Column(name = "label")
 	private String label;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "goals_actions", joinColumns = { @JoinColumn(name = "goal", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "action", nullable = false, updatable = false) })
 	private Set<Action> actions = new HashSet<Action>();
 

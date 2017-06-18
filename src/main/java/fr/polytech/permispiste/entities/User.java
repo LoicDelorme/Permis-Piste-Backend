@@ -1,17 +1,12 @@
 package fr.polytech.permispiste.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -58,11 +53,11 @@ public class User implements Serializable {
 	@Column(name = "is_administrator")
 	private boolean isAdministrator;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
-	private Set<Training> trainings = new HashSet<Training>();
+	// @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
+	// private Set<Training> trainings = new HashSet<Training>();
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-	private Set<UserAction> userActions = new HashSet<UserAction>();
+	// @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	// private Set<UserAction> userActions = new HashSet<UserAction>();
 
 	public int getId() {
 		return this.id;
@@ -120,19 +115,19 @@ public class User implements Serializable {
 		this.isAdministrator = isAdministrator;
 	}
 
-	public Set<Training> getTrainings() {
-		return this.trainings;
-	}
+	// public Set<Training> getTrainings() {
+	// return this.trainings;
+	// }
 
-	public void setTrainings(Set<Training> trainings) {
-		this.trainings = trainings;
-	}
+	// public void setTrainings(Set<Training> trainings) {
+	// this.trainings = trainings;
+	// }
 
-	public Set<UserAction> getUserActions() {
-		return this.userActions;
-	}
+	// public Set<UserAction> getUserActions() {
+	// return this.userActions;
+	// }
 
-	public void setUserActions(Set<UserAction> userActions) {
-		this.userActions = userActions;
-	}
+	// public void setUserActions(Set<UserAction> userActions) {
+	// this.userActions = userActions;
+	// }
 }

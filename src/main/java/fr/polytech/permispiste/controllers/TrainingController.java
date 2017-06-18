@@ -55,7 +55,7 @@ public class TrainingController extends AbstractController {
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String all() {
-		return SERIALIZER.to(this.trainingDaoServices.getAll());
+		return SERIALIZER.to(new SuccessResponse(this.trainingDaoServices.getAll()));
 	}
 
 	@RequestMapping(value = "/count", method = RequestMethod.GET)

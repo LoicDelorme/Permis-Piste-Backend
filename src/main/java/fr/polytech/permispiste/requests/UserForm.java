@@ -56,7 +56,7 @@ public class UserForm {
 		return this.isEnabled;
 	}
 
-	public void setEnabled(boolean isEnabled) {
+	public void setIsEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
 
@@ -64,7 +64,7 @@ public class UserForm {
 		return this.isAdministrator;
 	}
 
-	public void setAdministrator(boolean isAdministrator) {
+	public void setIsAdministrator(boolean isAdministrator) {
 		this.isAdministrator = isAdministrator;
 	}
 }

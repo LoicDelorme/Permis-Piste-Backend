@@ -2,25 +2,32 @@ package fr.polytech.permispiste.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+
+import fr.polytech.permispiste.entities.pks.UserResponseActionPK;
 
 /**
- * This class represents a training action entity.
+ * This class represents a user action entity.
  *
  * @author DELORME Loïc
  * @since 1.0.0
  */
 @Entity
-@Table(name = "trainings_actions")
-public class TrainingAction implements Serializable {
+@IdClass(UserResponseActionPK.class)
+@Table(name = "users_responses_actions")
+public class UserResponseAction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	@ManyToOne
+	@JoinColumn(name = "user")
+	private User user;
 
 	@Id
 	@ManyToOne
@@ -47,9 +54,13 @@ public class TrainingAction implements Serializable {
 	@JoinColumn(name = "action")
 	private Action action;
 
-	@NotNull
-	@Column(name = "offset")
-	private int offset;
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Training getTraining() {
 		return this.training;
@@ -89,13 +100,5 @@ public class TrainingAction implements Serializable {
 
 	public void setAction(Action action) {
 		this.action = action;
-	}
-
-	public int getOffset() {
-		return this.offset;
-	}
-
-	public void setOffset(int offset) {
-		this.offset = offset;
 	}
 }

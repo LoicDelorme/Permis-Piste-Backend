@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -44,6 +45,10 @@ public class Goal implements Serializable {
 	@JoinTable(name = "goals_actions", joinColumns = { @JoinColumn(name = "goal", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "action", nullable = false, updatable = false) })
 	private Set<Action> actions = new HashSet<Action>();
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "action")
+	private Action action;
+
 	public int getId() {
 		return this.id;
 	}
@@ -66,5 +71,13 @@ public class Goal implements Serializable {
 
 	public void setActions(Set<Action> actions) {
 		this.actions = actions;
+	}
+
+	public Action getAction() {
+		return this.action;
+	}
+
+	public void setAction(Action action) {
+		this.action = action;
 	}
 }

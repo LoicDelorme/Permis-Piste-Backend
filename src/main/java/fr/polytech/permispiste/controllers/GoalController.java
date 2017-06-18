@@ -62,6 +62,7 @@ public class GoalController extends AbstractController {
 		if (goalForm.getIds().length > 0) {
 			goal.setActions(new HashSet<Action>(this.actionDaoServices.getAllIn(Arrays.asList(goalForm.getIds()))));
 		}
+		goal.setAction(this.actionDaoServices.get(goalForm.getResponseId()));
 
 		this.goalDaoServices.insert(goal);
 		return SERIALIZER.to(new SuccessResponse(goal));
@@ -78,6 +79,7 @@ public class GoalController extends AbstractController {
 		} else {
 			goal.getActions().clear();
 		}
+		goal.setAction(this.actionDaoServices.get(goalForm.getResponseId()));
 
 		this.goalDaoServices.update(goal);
 		return SERIALIZER.to(new SuccessResponse(goal));

@@ -12,6 +12,8 @@ public class GoalForm {
 
 	private Integer[] ids;
 
+	private int responseId;
+
 	public String getLabel() {
 		return this.label;
 	}
@@ -26,5 +28,13 @@ public class GoalForm {
 
 	public void setIds(Integer[] ids) {
 		this.ids = ids;
+	}
+
+	public int getResponseId() {
+		return this.responseId;
+	}
+
+	public void setResponseId(int responseId) {
+		this.responseId = responseId;
 	}
 }

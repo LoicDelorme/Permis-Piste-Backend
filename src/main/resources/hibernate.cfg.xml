@@ -22,8 +22,7 @@
 	    <mapping class="fr.polytech.permispiste.entities.Rule" />
 	    <mapping class="fr.polytech.permispiste.entities.Token" />
 	    <mapping class="fr.polytech.permispiste.entities.Training" />
-	    <mapping class="fr.polytech.permispiste.entities.TrainingAction" />
 	    <mapping class="fr.polytech.permispiste.entities.User" />
-	    <mapping class="fr.polytech.permispiste.entities.UserAction" />
+	    <mapping class="fr.polytech.permispiste.entities.UserResponseAction" />
 	</session-factory>
 </hibernate-configuration>

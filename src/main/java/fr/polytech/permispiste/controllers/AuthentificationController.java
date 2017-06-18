@@ -21,15 +21,15 @@ import fr.polytech.permispiste.services.impl.TokenDaoServices;
 import fr.polytech.permispiste.services.impl.UserDaoServices;
 
 /**
- * This class represents a connection controller.
+ * This class represents an authentification controller.
  *
  * @author DELORME Loïc
  * @since 1.0.0
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/api/connection")
-public class ConnectionController extends AbstractController {
+@RequestMapping("/api/authentification")
+public class AuthentificationController extends AbstractController {
 
 	private final UserDaoServices userDaoServices;
 
@@ -37,13 +37,13 @@ public class ConnectionController extends AbstractController {
 
 	private final LogDaoServices logDaoServices;
 
-	public ConnectionController() {
+	public AuthentificationController() {
 		this.userDaoServices = new UserDaoServices();
 		this.tokenDaoServices = new TokenDaoServices();
 		this.logDaoServices = new LogDaoServices();
 	}
 
-	@RequestMapping(value = "/auth", method = RequestMethod.POST)
+	@RequestMapping(value = "/connect", method = RequestMethod.POST)
 	public String auth(HttpServletRequest request, @RequestBody String data) {
 		final AuthentificationForm authentificationForm = DESERIALIZER.from(data, AuthentificationForm.class);
 

@@ -16,9 +16,9 @@ public class UserForm {
 
 	private String password;
 
-	private boolean isEnabled;
+	private boolean enabled;
 
-	private boolean isAdministrator;
+	private boolean administrator;
 
 	public String getLastname() {
 		return this.lastname;
@@ -53,18 +53,18 @@ public class UserForm {
 	}
 
 	public boolean isEnabled() {
-		return this.isEnabled;
+		return this.enabled;
 	}
 
-	public void setIsEnabled(boolean isEnabled) {
-		this.isEnabled = isEnabled;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public boolean isAdministrator() {
-		return this.isAdministrator;
+		return this.administrator;
 	}
 
-	public void setIsAdministrator(boolean isAdministrator) {
-		this.isAdministrator = isAdministrator;
+	public void setAdministrator(boolean administrator) {
+		this.administrator = administrator;
 	}
 }

@@ -6,10 +6,11 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import fr.polytech.permispiste.responses.ErrorResponse;
 
@@ -22,14 +23,14 @@ import fr.polytech.permispiste.responses.ErrorResponse;
 @ControllerAdvice
 public class ExceptionHandlerController extends AbstractController {
 
-	@ResponseStatus(HttpStatus.OK)
 	@ExceptionHandler(Exception.class)
-	public String handleException(HttpServletRequest request, Exception exception) {
+	public ResponseEntity<Object> handleException(HttpServletRequest request, Exception exception) {
 		final Writer writer = new StringWriter();
 		exception.printStackTrace(new PrintWriter(writer));
-
 		final String exceptionStackTrace = writer.toString();
+		final String body = SERIALIZER.to(new ErrorResponse(String.format("Request \"%s\" raised an exception:\n%s", request.getRequestURL(), exceptionStackTrace)));
+
 		LOGGER.error(exceptionStackTrace);
-		return SERIALIZER.to(new ErrorResponse(String.format("Request \"%s\" raised an exception:\n%s", request.getRequestURL(), exceptionStackTrace)));
+		return new ResponseEntity<Object>(body, new HttpHeaders(), HttpStatus.OK);
 	}
 }

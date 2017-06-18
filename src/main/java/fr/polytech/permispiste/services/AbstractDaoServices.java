@@ -18,7 +18,7 @@ import org.hibernate.query.Query;
  */
 public abstract class AbstractDaoServices<T> implements DaoServices<T> {
 
-	private final Class<T> entityClass;
+	protected final Class<T> entityClass;
 
 	public AbstractDaoServices(Class<T> entityClass) {
 		this.entityClass = entityClass;

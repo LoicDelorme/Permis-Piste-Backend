@@ -35,6 +35,12 @@ public class UserController extends AbstractController {
 		return SERIALIZER.to(new SuccessResponse(this.userDaoServices.get(id)));
 	}
 
+	@RequestMapping(value = "/{id}/trainings", method = RequestMethod.GET)
+	public String getTrainings(@PathVariable int id) {
+		final User user = this.userDaoServices.get(id);
+		return SERIALIZER.to(new SuccessResponse(user.getTrainings()));
+	}
+
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String all() {
 		return SERIALIZER.to(new SuccessResponse(this.userDaoServices.getAll()));

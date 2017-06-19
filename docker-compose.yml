@@ -21,3 +21,13 @@ services:
       - MYSQL_ROOT_PASSWORD=secret
     ports:
       - "3306:3306"
+  angular:
+    build:
+      context: docker-config/nginx
+    volumes:
+     - ./mysite.template:/etc/nginx/conf.d/mysite.template
+    ports:
+     - "4200:80"
+    environment:
+     - NGINX_HOST=test.dev
+     - NGINX_PORT=80

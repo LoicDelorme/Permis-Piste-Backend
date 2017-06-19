@@ -12,7 +12,7 @@ import org.hibernate.cfg.Configuration;
  */
 public class HibernateSessionManager {
 
-	public static final String HIBERNATE_CONFIGURATION_FILE = "hibernate.cfg.xml.off";
+	public static final String HIBERNATE_CONFIGURATION_FILE = "hibernate.cfg.xml";
 
 	private static SessionFactory SESSION_FACTORY = null;
 

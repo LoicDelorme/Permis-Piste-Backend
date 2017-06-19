@@ -6,22 +6,18 @@ services:
       dockerfile: docker-config/tomcat/Dockerfile
     ports:
       - "8080:8080"
-#    links:
-#      - database:database
-#    depends_on:
-#      - database
+    links:
+      - database:database
+    depends_on:
+      - database
 
-#  database:
-#    image: mysql
-#    command: mysqld --innodb-buffer-pool-size=20M
-#    volumes:
-#      - ./docker-config/mysql:/var/lib/mysql:rw
-#      - ./src/main/resources/SQL:/docker-entrypoint-initdb.d
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=secret
-#    ports:
-#      - "3306:3306"
-
-volumes:
-  mysql-data:
-    driver: local
+  database:
+    image: mysql
+    command: mysqld --innodb-buffer-pool-size=20M
+    volumes:
+      - ./docker-config/mysql:/var/lib/mysql:rw
+      - ./src/main/resources/SQL:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+    ports:
+      - "3306:3306"

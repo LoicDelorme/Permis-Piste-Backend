@@ -45,25 +45,25 @@ public class AuthentificationController extends AbstractController {
 
 	@RequestMapping(value = "/connect", method = RequestMethod.POST)
 	public String auth(HttpServletRequest request, @RequestBody String data) {
-		final AuthentificationForm authentificationForm = DESERIALIZER.from(data, AuthentificationForm.class);
+		try {
+			final AuthentificationForm authentificationForm = DESERIALIZER.from(data, AuthentificationForm.class);
+			final User user = this.userDaoServices.getByCredentials(authentificationForm.getEmail(), authentificationForm.getPassword());
 
-		final User user = this.userDaoServices.getByEmail(authentificationForm.getEmail());
-		if (!user.getPassword().equals(authentificationForm.getPassword())) {
+			final Token token = new Token();
+			token.setUser(user);
+			token.setBegin(LocalDateTime.now());
+			token.setEnd(LocalDateTime.now().plusHours(3));
+
+			final Log log = new Log();
+			log.setUser(user);
+			log.setDate(LocalDateTime.now());
+			log.setIpAddress(request.getRemoteAddr());
+
+			this.tokenDaoServices.insert(token);
+			this.logDaoServices.insert(log);
+			return SERIALIZER.to(new SuccessResponse(token));
+		} catch (Exception e) {
 			return SERIALIZER.to(new ErrorResponse("Invalid credentials"));
 		}
-
-		final Token token = new Token();
-		token.setUser(user);
-		token.setBegin(LocalDateTime.now());
-		token.setEnd(LocalDateTime.now().plusHours(6));
-
-		final Log log = new Log();
-		log.setUser(user);
-		log.setDate(LocalDateTime.now());
-		log.setIpAddress(request.getRemoteAddr());
-
-		this.tokenDaoServices.insert(token);
-		this.logDaoServices.insert(log);
-		return SERIALIZER.to(new SuccessResponse(token));
 	}
 }

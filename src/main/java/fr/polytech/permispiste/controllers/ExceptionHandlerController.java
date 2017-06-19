@@ -28,7 +28,7 @@ public class ExceptionHandlerController extends AbstractController {
 		final Writer writer = new StringWriter();
 		exception.printStackTrace(new PrintWriter(writer));
 		final String exceptionStackTrace = writer.toString();
-		final String body = SERIALIZER.to(new ErrorResponse(String.format("Request \"%s\" raised an exception:\n%s", request.getRequestURL(), exceptionStackTrace)));
+		final String body = SERIALIZER.to(new ErrorResponse(String.format("Request '%s' raised an exception:\n%s", request.getRequestURL(), exceptionStackTrace)));
 
 		LOGGER.error(exceptionStackTrace);
 		return new ResponseEntity<Object>(body, new HttpHeaders(), HttpStatus.NOT_FOUND);

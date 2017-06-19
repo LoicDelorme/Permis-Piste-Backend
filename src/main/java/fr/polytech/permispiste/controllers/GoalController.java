@@ -59,10 +59,10 @@ public class GoalController extends AbstractController {
 
 		final Goal goal = new Goal();
 		goal.setLabel(goalForm.getLabel());
-		if (goalForm.getIds().length > 0) {
-			goal.setActions(new HashSet<Action>(this.actionDaoServices.getAllIn(Arrays.asList(goalForm.getIds()))));
+		if (goalForm.getAnswersIds().length > 0) {
+			goal.setAnswers(new HashSet<Action>(this.actionDaoServices.getAllIn(Arrays.asList(goalForm.getAnswersIds()))));
 		}
-		goal.setAction(this.actionDaoServices.get(goalForm.getResponseId()));
+		goal.setResponse(this.actionDaoServices.get(goalForm.getResponseId()));
 
 		this.goalDaoServices.insert(goal);
 		return SERIALIZER.to(new SuccessResponse(goal));
@@ -74,12 +74,12 @@ public class GoalController extends AbstractController {
 
 		final Goal goal = this.goalDaoServices.get(id);
 		goal.setLabel(goalForm.getLabel());
-		if (goalForm.getIds().length > 0) {
-			goal.setActions(new HashSet<Action>(this.actionDaoServices.getAllIn(Arrays.asList(goalForm.getIds()))));
+		if (goalForm.getAnswersIds().length > 0) {
+			goal.setAnswers(new HashSet<Action>(this.actionDaoServices.getAllIn(Arrays.asList(goalForm.getAnswersIds()))));
 		} else {
-			goal.getActions().clear();
+			goal.getAnswers().clear();
 		}
-		goal.setAction(this.actionDaoServices.get(goalForm.getResponseId()));
+		goal.setResponse(this.actionDaoServices.get(goalForm.getResponseId()));
 
 		this.goalDaoServices.update(goal);
 		return SERIALIZER.to(new SuccessResponse(goal));

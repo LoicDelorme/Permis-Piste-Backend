@@ -10,9 +10,9 @@ public class GoalForm {
 
 	private String label;
 
-	private Integer[] ids;
+	private Integer[] answersIds;
 
-	private int responseId;
+	private Integer responseId;
 
 	public String getLabel() {
 		return this.label;
@@ -22,19 +22,19 @@ public class GoalForm {
 		this.label = label;
 	}
 
-	public Integer[] getIds() {
-		return this.ids;
+	public Integer[] getAnswersIds() {
+		return this.answersIds;
 	}
 
-	public void setIds(Integer[] ids) {
-		this.ids = ids;
+	public void setAnswersIds(Integer[] answersIds) {
+		this.answersIds = answersIds;
 	}
 
-	public int getResponseId() {
+	public Integer getResponseId() {
 		return this.responseId;
 	}
 
-	public void setResponseId(int responseId) {
+	public void setResponseId(Integer responseId) {
 		this.responseId = responseId;
 	}
 }

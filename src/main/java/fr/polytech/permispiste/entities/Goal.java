@@ -43,11 +43,11 @@ public class Goal implements Serializable {
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "goals_actions", joinColumns = { @JoinColumn(name = "goal", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "action", nullable = false, updatable = false) })
-	private Set<Action> actions = new HashSet<Action>();
+	private Set<Action> answers = new HashSet<Action>();
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "action")
-	private Action action;
+	private Action response;
 
 	public int getId() {
 		return this.id;
@@ -65,19 +65,19 @@ public class Goal implements Serializable {
 		this.label = label;
 	}
 
-	public Set<Action> getActions() {
-		return this.actions;
+	public Set<Action> getAnswers() {
+		return this.answers;
 	}
 
-	public void setActions(Set<Action> actions) {
-		this.actions = actions;
+	public void setAnswers(Set<Action> answers) {
+		this.answers = answers;
 	}
 
-	public Action getAction() {
-		return this.action;
+	public Action getResponse() {
+		return this.response;
 	}
 
-	public void setAction(Action action) {
-		this.action = action;
+	public void setResponse(Action response) {
+		this.response = response;
 	}
 }

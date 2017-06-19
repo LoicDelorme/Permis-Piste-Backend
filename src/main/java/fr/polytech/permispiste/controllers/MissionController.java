@@ -59,8 +59,8 @@ public class MissionController extends AbstractController {
 
 		final Mission mission = new Mission();
 		mission.setLabel(missionForm.getLabel());
-		if (missionForm.getIds().length > 0) {
-			mission.setGoals(new HashSet<Goal>(this.goalDaoServices.getAllIn(Arrays.asList(missionForm.getIds()))));
+		if (missionForm.getGoalsIds().length > 0) {
+			mission.setGoals(new HashSet<Goal>(this.goalDaoServices.getAllIn(Arrays.asList(missionForm.getGoalsIds()))));
 		}
 
 		this.missionDaoServices.insert(mission);
@@ -73,8 +73,8 @@ public class MissionController extends AbstractController {
 
 		final Mission mission = this.missionDaoServices.get(id);
 		mission.setLabel(missionForm.getLabel());
-		if (missionForm.getIds().length > 0) {
-			mission.setGoals(new HashSet<Goal>(this.goalDaoServices.getAllIn(Arrays.asList(missionForm.getIds()))));
+		if (missionForm.getGoalsIds().length > 0) {
+			mission.setGoals(new HashSet<Goal>(this.goalDaoServices.getAllIn(Arrays.asList(missionForm.getGoalsIds()))));
 		} else {
 			mission.getGoals().clear();
 		}

@@ -59,8 +59,8 @@ public class PaperController extends AbstractController {
 
 		final Paper paper = new Paper();
 		paper.setLabel(paperForm.getLabel());
-		if (paperForm.getIds().length > 0) {
-			paper.setMissions(new HashSet<Mission>(this.missionDaoServices.getAllIn(Arrays.asList(paperForm.getIds()))));
+		if (paperForm.getMissionsIds().length > 0) {
+			paper.setMissions(new HashSet<Mission>(this.missionDaoServices.getAllIn(Arrays.asList(paperForm.getMissionsIds()))));
 		}
 
 		this.paperDaoServices.insert(paper);
@@ -73,8 +73,8 @@ public class PaperController extends AbstractController {
 
 		final Paper paper = this.paperDaoServices.get(id);
 		paper.setLabel(paperForm.getLabel());
-		if (paperForm.getIds().length > 0) {
-			paper.setMissions(new HashSet<Mission>(this.missionDaoServices.getAllIn(Arrays.asList(paperForm.getIds()))));
+		if (paperForm.getMissionsIds().length > 0) {
+			paper.setMissions(new HashSet<Mission>(this.missionDaoServices.getAllIn(Arrays.asList(paperForm.getMissionsIds()))));
 		} else {
 			paper.getMissions().clear();
 		}

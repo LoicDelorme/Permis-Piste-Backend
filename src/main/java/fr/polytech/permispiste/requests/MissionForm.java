@@ -10,7 +10,7 @@ public class MissionForm {
 
 	private String label;
 
-	private Integer[] ids;
+	private Integer[] goalsIds;
 
 	public String getLabel() {
 		return this.label;
@@ -20,11 +20,11 @@ public class MissionForm {
 		this.label = label;
 	}
 
-	public Integer[] getIds() {
-		return this.ids;
+	public Integer[] getGoalsIds() {
+		return this.goalsIds;
 	}
 
-	public void setIds(Integer[] ids) {
-		this.ids = ids;
+	public void setGoalsIds(Integer[] goalsIds) {
+		this.goalsIds = goalsIds;
 	}
 }

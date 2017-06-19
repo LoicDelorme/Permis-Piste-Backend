@@ -20,12 +20,13 @@ public class UserDaoServices extends AbstractDaoServices<User> {
 		super(User.class);
 	}
 
-	public User getByEmail(String email) {
+	public User getByCredentials(String email, String password) {
 		final Session session = getSession();
 
 		session.beginTransaction();
-		final Query<User> query = session.createQuery(String.format("SELECT el FROM %s el WHERE el.email = :email", this.entityClass.getSimpleName()), this.entityClass);
+		final Query<User> query = session.createQuery(String.format("SELECT el FROM %s el WHERE el.email = :email and el.password = :password", this.entityClass.getSimpleName()), this.entityClass);
 		query.setParameter("email", email);
+		query.setParameter("password", password);
 		final User user = query.getSingleResult();
 		session.getTransaction().commit();
 
